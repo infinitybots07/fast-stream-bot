@@ -66,7 +66,7 @@ func perseTokens(tokenString string) (s []string) {
 
 func setDefault(appCfg *AppConfig) {
 	if appCfg.APP_NAME == "" {
-		appCfg.APP_NAME = "Codeltix Stream"
+		appCfg.APP_NAME = "Infinity Stream"
 	}
 
 	if appCfg.ENV_FILE == "" {
