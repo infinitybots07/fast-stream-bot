@@ -25,6 +25,8 @@ WORKDIR /app
 # Install necessary runtime dependencies
 RUN apk --no-cache add ca-certificates mailcap tzdata
 
+#RUN apk --no-cache add ca-certificates mailcap tzdata git
+
 # Copy binary
 COPY --from=backend-builder /app/fast-stream-bot .
 
@@ -35,6 +37,6 @@ COPY frontend ./frontend
 COPY --from=frontend-builder /app/frontend/assets/styles/tailwind.css ./frontend/assets/styles/tailwind.css
 
 # Expose port (default 8000)
-EXPOSE 8000
+EXPOSE 8080
 
 CMD ["./fast-stream-bot" , "-init-db"]
