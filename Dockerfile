@@ -23,9 +23,10 @@ FROM alpine:latest
 WORKDIR /app
 
 # Install necessary runtime dependencies
-RUN apk --no-cache add ca-certificates mailcap tzdata
+RUN apk --no-cache add ca-certificates mailcap tzdata git
 
-#RUN apk --no-cache add ca-certificates mailcap tzdata git
+# COPY THE CONFIG FILE (This is what was missing!)
+#COPY config.toml
 
 # Copy binary
 COPY --from=backend-builder /app/fast-stream-bot .
