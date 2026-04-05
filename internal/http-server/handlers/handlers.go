@@ -251,6 +251,12 @@ func (h *StreamHandler) MakeHashByChanMsgID() http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		messageIdStr := r.PathValue("messageId")
 		channelIdStr := r.PathValue("channelId")
+			
+		// ✅ Normalize -100 prefix
+		if strings.HasPrefix(channelIdStr, "-100") {
+		    channelIdStr = channelIdStr[4:] // remove "-100"
+		}
+		
 		messageId, channelId64, err := botutils.ParseMessageAndChannelId(messageIdStr, channelIdStr, 0)
 		if err != nil {
 			slog.Error("failed to parse messageId and channelId", "error", err)
