@@ -2,72 +2,195 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>{{.AppName}}</title>
-	<script src="https://cdn.tailwindcss.com"></script>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
-		rel="stylesheet">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
-		integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
-		crossorigin="anonymous" referrerpolicy="no-referrer" />
-	<link rel="stylesheet" type="text/css" href="/static/styles/styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{.AppName}}</title>
 
-<body class="bg-brand-dark-blue text-white text-sm ">
-	<div class="p-4  mx-auto max-w-7xl">
-		<!-- Header -->
-		<header class="pb-8 pt-4 text-center jet-font">
-			<div
-				class="w-full text-4xl bg-gradient-to-br text-transparent  from-[#8baefc] via-[#7aa2f7] to-[#6587d0] bg-clip-text md:text-6xl font-bold uppercase mb-3 no-scrollbar overflow-x-auto">
-				{{.AppName}}
-			</div>
-			<h1 class="text-xl md:text-2xl text-blue font-bold uppercase">
-				<i class="fa-solid fa-video"></i> Stream & Download
-			</h1>
-		</header>
+<script src="https://cdn.tailwindcss.com"></script>
 
-		<div class="w-full mb-4">
-			<img class="w-full rounded-lg border-blue-400/50 border-2 lg:border-4 hover:border-blue-400/80  transition duration-500 "
-				src="{{.HeaderImage}}" alt="">
-		</div>
-		<div class="w-full">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-			<div class="flex jet-font flex-wrap gap-2 items-center justify-center">
-				<a href="{{.BotLink}}" target="_blank" class="w-fit">
-					<button
-						class="bg-[#7aa2f7] text-black hover:bg-[#7dcfff]  rounded-lg px-4 py-2 text-sm font-bold uppercase w-full sm:w-auto">
-						<i class="fa-brands fa-telegram mr-1"></i>Start Bot
-					</button>
-				</a>
-				<a href="{{.ChannelLink}}" target="_blank" class="w-fit">
-					<button
-						class="bg-[#7aa2f7] text-black hover:bg-[#7dcfff]  rounded-lg px-4 py-2 text-sm font-bold uppercase w-full sm:w-auto">
-						<i class="fa-solid fa-users mr-1"></i></i>Channel
-					</button>
-				</a>
-			</div>
-		</div>
-		<p class="mt-4  text-center text-sm md:text-lg text-blue jet-font">Upload/Forward your video to bot and watch it
-			online or get faster download link</p>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"/>
 
-	</div>
+<style>
+body {
+    background: #020617;
+    font-family: 'JetBrains Mono', monospace;
+    overflow-x: hidden;
+}
 
-	<footer class="mt-12 pt-6 pb-8 text-center border-t border-white/10">
-		<p class="text-white/70 text-sm jet-font flex items-center justify-center gap-2">
-			<i class="fa-brands fa-github text-lg"></i>
-			<span>This project is open source:</span>
-			<a href="https://github.com/ibhub0" target="_blank"
-				class="text-blue-400 hover:text-blue-300 underline underline-offset-2 transition-colors">
-				infinity-botz/file-stream-bot
-			</a>
-		</p>
-	</footer>
-	</div>
+/* 🌌 PARTICLES */
+#particles {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+}
 
-	<!-- git commits  -->
+/* 🔄 ROTATING GRID (SUBTLE) */
+.bg-rotate {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+}
+
+.bg-rotate::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+
+    background: repeating-linear-gradient(
+        90deg,
+        rgba(122,162,247,0.05) 0px,
+        rgba(122,162,247,0.05) 1px,
+        transparent 1px,
+        transparent 120px
+    );
+
+    animation: rotateBg 60s linear infinite;
+}
+
+@keyframes rotateBg {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* GLOW */
+.bg-glow {
+    position: fixed;
+    width: 300px;
+    height: 300px;
+    background: #1e40af;
+    filter: blur(120px);
+    border-radius: 50%;
+    z-index: -1;
+    opacity: 0.25;
+}
+
+/* BUTTON HOVER */
+button:hover {
+    box-shadow: 0 0 15px rgba(122,162,247,0.6);
+    transform: translateY(-2px);
+    transition: 0.3s;
+}
+</style>
+</head>
+
+<body class="text-white text-sm">
+
+<!-- BACKGROUND -->
+<div class="bg-rotate"></div>
+<canvas id="particles"></canvas>
+
+<div class="bg-glow top-0 left-0"></div>
+<div class="bg-glow bottom-0 right-0"></div>
+
+<div class="p-4 mx-auto max-w-7xl">
+
+<!-- HEADER -->
+<header class="pb-8 pt-4 text-center">
+<div class="text-4xl md:text-6xl font-bold uppercase mb-3 bg-gradient-to-br from-[#8baefc] via-[#7aa2f7] to-[#6587d0] text-transparent bg-clip-text">
+{{.AppName}}
+</div>
+
+<h1 class="text-xl md:text-2xl text-blue-400 font-bold uppercase">
+<i class="fa-solid fa-video"></i> Stream & Download
+</h1>
+</header>
+
+<!-- IMAGE -->
+<div class="w-full mb-4">
+<img class="w-full rounded-lg border-blue-400/50 border-2 lg:border-4 hover:border-blue-400/80 transition duration-500"
+src="{{.HeaderImage}}">
+</div>
+
+<!-- BUTTONS -->
+<div class="flex flex-wrap gap-2 items-center justify-center">
+
+<a href="{{.BotLink}}" target="_blank">
+<button class="bg-[#7aa2f7] text-black hover:bg-[#7dcfff] rounded-lg px-4 py-2 font-bold uppercase">
+<i class="fa-brands fa-telegram mr-1"></i> Start Bot
+</button>
+</a>
+
+<a href="{{.ChannelLink}}" target="_blank">
+<button class="bg-[#7aa2f7] text-black hover:bg-[#7dcfff] rounded-lg px-4 py-2 font-bold uppercase">
+<i class="fa-solid fa-users mr-1"></i> Channel
+</button>
+</a>
+
+</div>
+
+<p class="mt-4 text-center text-sm md:text-lg text-blue-300">
+Upload/Forward your video to bot and watch it online or get faster download link
+</p>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="mt-12 pt-6 pb-8 text-center border-t border-white/10">
+<p class="text-white/70 text-sm flex items-center justify-center gap-2">
+<i class="fa-brands fa-github text-lg"></i>
+<span>Open source:</span>
+<a href="https://github.com/ibhub0" target="_blank"
+class="text-blue-400 hover:text-blue-300 underline underline-offset-2">
+infinity-botz/file-stream-bot
+</a>
+</p>
+</footer>
+
+<!-- 🌌 PARTICLES SCRIPT -->
+<script>
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+
+for (let i = 0; i < 70; i++) {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        r: Math.random() * 2,
+        dx: (Math.random() - 0.5) * 0.4,
+        dy: (Math.random() - 0.5) * 0.4
+    });
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    particles.forEach(p => {
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = "rgba(122,162,247,0.7)";
+        ctx.fill();
+
+        p.x += p.dx;
+        p.y += p.dy;
+
+        if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
+        if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
+    });
+
+    requestAnimationFrame(draw);
+}
+
+draw();
+
+/* RESPONSIVE FIX */
+window.addEventListener("resize", () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+</script>
+
 </body>
-
 </html>
