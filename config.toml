@@ -1,6 +1,6 @@
 app_name = "Fast Stream Bot"
 env_file = ".env"
-header_image = "your_image_path_or_url"
+header_image = "https://i.ibb.co/NH9ZkZD/photo-2026-04-06-18-50-05-7625720507131756560.jpg"
 
 max_credits = 500
 min_credits_required = 5
