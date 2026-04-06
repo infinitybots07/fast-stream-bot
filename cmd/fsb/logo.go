@@ -20,7 +20,7 @@ func printLogo(version string) {
 		version = getVersion()
 	}
 
-	gitLink := color.HiGreenString("https://github.com/biisal/fast-stream-bot")
+	gitLink := color.HiGreenString("https://github.com/infinitybots07/fast-stream-bot")
 	versionStr := color.HiYellowString("You are using version %s", version)
 
 	logo := fmt.Sprintf(`
